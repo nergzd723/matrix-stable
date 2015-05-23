@@ -232,7 +232,8 @@ struct common_dbs_data {
 	void *(*get_cpu_dbs_info_s)(int cpu);
 	void (*gov_dbs_timer)(struct work_struct *work);
 	void (*gov_check_cpu)(int cpu, unsigned int load);
-	int (*init)(struct dbs_data *dbs_data, struct cpufreq_policy *policy);
+	int (*init)(struct dbs_data *dbs_data);
+	int (*init_ex)(struct dbs_data *dbs_data, struct cpufreq_policy *policy);
 	void (*exit)(struct dbs_data *dbs_data);
 
 	/* Governor specific ops, see below */
@@ -243,6 +244,7 @@ struct common_dbs_data {
 struct dbs_data {
 	struct common_dbs_data *cdata;
 	unsigned int min_sampling_rate;
+	struct cpufreq_frequency_table *freq_table;
 	int usage_count;
 	void *tuners;
 
