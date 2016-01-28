@@ -136,8 +136,6 @@ unsigned int __read_mostly sysctl_sched_shares_window = 10000000UL;
  * default: 5 msec, units: microseconds
   */
 unsigned int sysctl_sched_cfs_bandwidth_slice = 5000UL;
-#endif
-
 /*
  * Increase the granularity value when there are more CPUs,
  * because with more CPUs the 'effective latency' as visible

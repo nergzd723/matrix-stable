@@ -21,16 +21,13 @@
 #include <linux/leds.h>
 #include <linux/qpnp/pwm.h>
 #include <linux/err.h>
-#include <linux/string.h>
-#include <linux/display_state.h>
-
 #include <linux/display_state.h>
 #include "mdss_dsi.h"
 #include "mdss_mdp.h"
 #include "mdss_livedisplay.h"
 
 #define DT_CMD_HDR 6
-#define MIN_REFRESH_RATE 30
+#define MIN_REFRESH_RATE 35
 #define DEFAULT_MDP_TRANSFER_TIME 14000
 
 #ifdef VENDOR_EDIT
@@ -136,6 +133,13 @@ bool is_display_on()
 }
 
 DEFINE_LED_TRIGGER(bl_led_trigger);
+
+bool display_on = true;
+
+bool is_display_on()
+{
+	return display_on;
+}
 
 void mdss_dsi_panel_pwm_cfg(struct mdss_dsi_ctrl_pdata *ctrl)
 {
@@ -982,6 +986,8 @@ static int mdss_dsi_panel_on(struct mdss_panel_data *pdata)
 
 	display_on = true;
 
+	display_on = true;
+
 	pinfo = &pdata->panel_info;
 	ctrl = container_of(pdata, struct mdss_dsi_ctrl_pdata,
 				panel_data);
@@ -1109,6 +1115,8 @@ static int mdss_dsi_panel_off(struct mdss_panel_data *pdata)
 //	mdss_dsi_panel_cmd_read(ctrl, 0x0A, 0, NULL, rx_buf, 1);
 //	printk("%s: after sleep Reg 0A 0x%02x\n", __func__, rx_buf[0]);
 //	mdss_debug_enable_clock(0);
+
+	display_on = false;
 
 	display_on = false;
 
