@@ -1699,11 +1699,6 @@ static void qpnp_hap_td_enable(struct timed_output_dev *dev, int value)
 }
 
 
-void call_vibrate(int vibrate)
-{
-        qpnp_hap_td_enable(&ghap->timed_dev, vibrate);
-}
-
 /* play pwm bytes */
 int qpnp_hap_play_byte(u8 data, bool on)
 {
